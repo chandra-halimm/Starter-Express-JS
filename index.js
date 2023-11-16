@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 8000;
 const db = require("./config/Database");
+const router = require("./routes/route");
 
 try {
   db.authenticate();
@@ -9,6 +10,8 @@ try {
 } catch (error) {
   console.error(error);
 }
+
+app.use(router);
 
 app.get("/", function (req, res) {
   res.send("Hello World");
