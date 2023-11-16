@@ -1,5 +1,6 @@
 const { Sequelize } = require("sequelize");
 const { DataTypes } = Sequelize;
+const db = require("../config/Database");
 const { v4: uuidv4 } = require("uuid");
 
 const UUID_PREFIX = "USER_";

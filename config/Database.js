@@ -1,6 +1,6 @@
 const { Sequelize } = require("sequelize");
 
-const db = new Sequelize("temanTB", "root", "", {
+const db = new Sequelize("db-temantb", "root", "", {
   host: "localhost",
   dialect: "mysql",
 });
