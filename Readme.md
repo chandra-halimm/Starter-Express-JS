@@ -1,14 +1,26 @@
 # TemanTB-API
 
-## Login
+## Users
 
 | Method | Path          | Response Code | Body | Description         |
 | ------ |---------------| ------------- | ---- |---------------------|
-| POST   | /contacts     | 201 | JSON | Create new contacts |
-| GET    | /user         | 200 | JSON | List of contacts    |
+| POST   | /users        | 201 | JSON | Create new contacts |
+| GET    | /users        | 200 | JSON | List of contacts    |
 | DELETE | /contacts/:id | 200 | JSON | Delete contacts     |
 
-GET data auth login structure:
+
+POST data users structure:
+
+```json
+{
+    "name": "user1",
+    "email": "user@gmail.com",
+    "password": "123123",
+    "confPassword": "123123"
+}
+```
+
+GET data users structure:
 
 ```json
 {
@@ -21,6 +33,8 @@ GET data auth login structure:
             "updatedAt": "2023-11-16T09:51:14.000Z"
 }
 ```
+
+
 Server options:
  - `port`: 8000
  - `host`: localhost
