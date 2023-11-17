@@ -34,6 +34,18 @@ GET data users structure:
 }
 ```
 
+## Users
+
+| Method | Path          | Response Code | Body | Description         |
+| ------ |---------------| ------------- | ---- |---------------------|
+| POST   | /login        | 201 | JSON | access login|
+
+```json
+{
+    "email": "user@gmail.com",
+    "password": "123123"
+}
+```
 
 Server options:
  - `port`: 8000
