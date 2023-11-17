@@ -1,5 +1,6 @@
 const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
+const { response } = require("express");
 const jwt = require("jsonwebtoken");
 
 const getUsers = async (req, res) => {
@@ -60,7 +61,7 @@ const Register = async (req, res) => {
 
 const Login = async (req, res) => {
   try {
-    const user = await User.findAll({
+    const user = await User.findOne({
       where: {
         email: req.body.email,
       },
@@ -68,7 +69,7 @@ const Login = async (req, res) => {
 
     if (!user) {
       return res.status(400).json({
-        message: "Incorrect email or password",
+        message: "Incorrect email",
       });
     }
 
@@ -79,9 +80,43 @@ const Login = async (req, res) => {
 
     if (!passwordMatch) {
       return res.status(400).json({
-        message: "Incorrect email or password",
+        message: "Incorrect Password",
       });
     }
+
+    const userId = user.userID;
+    const name = user.name;
+    const email = user.email;
+    const accessToken = jwt.sign(
+      { userId, name, email },
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: "20s",
+      }
+    );
+    const refreshToken = jwt.sign(
+      { userId, name, email },
+      process.env.REFRESH_TOKEN_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
+
+    await User.update(
+      { refresh_token: refreshToken },
+      {
+        where: {
+          userID: userId,
+        },
+      }
+    );
+
+    res.cookie("refreshToken", refreshToken, {
+      httponly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    res.json({ accessToken });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -90,4 +125,41 @@ const Login = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, Register, Login };
+const Logout = async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken) {
+    return res.sendStatus(204);
+  }
+
+  try {
+    const user = await User.findOne({
+      where: {
+        refresh_token: refreshToken,
+      },
+    });
+
+    if (!user) {
+      return res.sendStatus(204);
+    }
+
+    const userId = user.userID;
+    await User.update(
+      { refresh_token: null },
+      {
+        where: {
+          userID: userId,
+        },
+      }
+    );
+
+    res.clearCookie("refreshToken");
+    return res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+};
+
+module.exports = { getUsers, Register, Login, Logout };

@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
 const app = express();
 const port = 8000;
 const db = require("./config/Database");
@@ -14,6 +15,7 @@ try {
   console.error(error);
 }
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(router);
 
