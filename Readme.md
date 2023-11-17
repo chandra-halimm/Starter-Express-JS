@@ -34,7 +34,9 @@ GET data users structure:
 }
 ```
 
-## Users
+## Login
+
+POST data login structure:
 
 | Method | Path          | Response Code | Body | Description         |
 | ------ |---------------| ------------- | ---- |---------------------|
