@@ -1,8 +1,11 @@
 const express = require("express");
+const dotenv = require("dotenv");
 const app = express();
 const port = 8000;
 const db = require("./config/Database");
 const router = require("./routes/route");
+
+dotenv.config();
 
 try {
   db.authenticate();
@@ -11,6 +14,7 @@ try {
   console.error(error);
 }
 
+app.use(express.json());
 app.use(router);
 
 app.get("/", function (req, res) {
