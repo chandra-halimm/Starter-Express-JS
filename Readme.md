@@ -46,9 +46,13 @@ POST data login structure:
 }
 ```
 
+## Logout
+
 | Method | Path          | Response Code | Body | Description         |
 | ------ |---------------| ------------- | ---- |---------------------|
 | DELETE   | /logout     | 200 | JSON | delete token login|
+
+POST data logout structure:
 
 ```json
 {
