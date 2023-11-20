@@ -46,6 +46,16 @@ POST data login structure:
 }
 ```
 
+| Method | Path          | Response Code | Body | Description         |
+| ------ |---------------| ------------- | ---- |---------------------|
+| DELETE   | /logout     | 200 | JSON | delete token login|
+
+```json
+{
+   OK
+}
+```
+
 Server options:
  - `port`: 8000
  - `host`: localhost
