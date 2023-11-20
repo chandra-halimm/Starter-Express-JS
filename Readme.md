@@ -52,7 +52,7 @@ POST data login structure:
 | ------ |---------------| ------------- | ---- |---------------------|
 | DELETE   | /logout     | 200 | JSON | delete token login|
 
-POST data logout structure:
+DELETE data logout structure:
 
 ```json
 {
