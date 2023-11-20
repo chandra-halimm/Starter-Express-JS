@@ -4,9 +4,8 @@
 
 | Method | Path          | Response Code | Body | Description         |
 | ------ |---------------| ------------- | ---- |---------------------|
-| POST   | /users        | 201 | JSON | Create new contacts |
-| GET    | /users        | 200 | JSON | List of contacts    |
-| DELETE | /contacts/:id | 200 | JSON | Delete contacts     |
+| POST   | /users        | 201 | JSON | Create new users |
+| GET    | /users        | 200 | JSON | List data of users    |
 
 
 POST data users structure:
@@ -36,11 +35,11 @@ GET data users structure:
 
 ## Login
 
-POST data login structure:
-
 | Method | Path          | Response Code | Body | Description         |
 | ------ |---------------| ------------- | ---- |---------------------|
 | POST   | /login        | 201 | JSON | access login|
+
+POST data login structure:
 
 ```json
 {
