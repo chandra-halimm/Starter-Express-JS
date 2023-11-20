@@ -19,7 +19,7 @@ const getUsers = async (req, res) => {
 };
 
 const Register = async (req, res) => {
-  const { name, email, password, confPassword } = req.body;
+  const { name, email, phone, password, confPassword } = req.body;
   if (password !== confPassword) {
     return res.status(400).json({
       message: "password doesn't match",
@@ -45,6 +45,7 @@ const Register = async (req, res) => {
     const newUser = await User.create({
       name: name,
       email: email,
+      phone: phone,
       password: hashPassword,
     });
     return res.status(201).json({
