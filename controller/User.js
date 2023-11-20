@@ -1,11 +1,12 @@
 const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
-const { response } = require("express");
 const jwt = require("jsonwebtoken");
 
 const getUsers = async (req, res) => {
   try {
-    const users = await User.findAll();
+    const users = await User.findAll({
+      attributes: ["userID", "name", "email"],
+    });
     return res.status(200).json({
       data: users,
       message: "success get all data",
@@ -112,7 +113,7 @@ const Login = async (req, res) => {
     );
 
     res.cookie("refreshToken", refreshToken, {
-      httponly: true,
+      httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
     });
 
